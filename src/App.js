@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card/card";
 import CustomSelect from "./components/CustomSelect/customSelect";
+import { months } from "./config/months";
 
 function App() {
   const [cities, setCities] = useState([]);
@@ -9,21 +10,6 @@ function App() {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   useEffect(() => {
     (async () => {
@@ -99,9 +85,9 @@ function App() {
       </div>
 
       <div className="grid-layout">
-        {filteredEvents.map((v) => {
-          return <Card key={v.id} eventItem={v} />;
-        })}
+        {filteredEvents.map((v) => (
+          <Card key={v.id} eventItem={v} />
+        ))}
       </div>
     </div>
   );

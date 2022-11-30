@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card/card";
+import CustomSelect from "./components/CustomSelect/customSelect";
 
 function App() {
   const [cities, setCities] = useState([]);
   const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
 
   const months = [
     "January",
@@ -31,7 +35,7 @@ function App() {
       );
 
       const data = await response.json();
-      const availableCities = data.map((v) => v.city);
+      const availableCities = [...new Set(data.map((v) => v.city))];
       const events = data.map((v) => {
         const [day, month, year] = v.date.split(".");
 
@@ -41,8 +45,8 @@ function App() {
         };
       });
       setCities(availableCities);
-
       setEvents(events);
+      setFilteredEvents(events);
     })();
   }, []);
 
@@ -51,35 +55,47 @@ function App() {
       <h1>Event Listing</h1>
 
       <div className="filter-container">
-        <label for="city">City </label>
-        <select
-          name="city"
-          id="city"
-          onChange={(event) => {
-            console.log("hello", event.target.value);
-          }}
-        >
-          {cities.map((v) => (
-            <option value={v}>{v}</option>
-          ))}
-        </select>
+        <CustomSelect
+          labelText={"City: "}
+          options={cities}
+          handleOnChange={(city) => {
+            setSelectedCity(city);
+            setFilteredEvents(
+              events.filter((v) => {
+                if (selectedMonth)
+                  return (
+                    v.city === city &&
+                    v.date.getMonth() === months.indexOf(selectedMonth)
+                  );
 
-        <label for="month">Month</label>
-        <select
-          name="month"
-          id="month"
-          onChange={(event) => {
-            console.log("hello", event.target.value);
+                return v.city === city;
+              })
+            );
           }}
-        >
-          {months.map((v) => (
-            <option value={v}>{v}</option>
-          ))}
-        </select>
+        />
+
+        <CustomSelect
+          labelText={"Month: "}
+          options={months}
+          handleOnChange={(month) => {
+            setSelectedMonth(month);
+            setFilteredEvents(
+              events.filter((v) => {
+                if (selectedCity)
+                  return (
+                    v.date.getMonth() === months.indexOf(month) &&
+                    v.city === selectedCity
+                  );
+
+                return v.date.getMonth() === months.indexOf(month);
+              })
+            );
+          }}
+        />
       </div>
 
       <div className="card-container">
-        {events.map((v) => {
+        {filteredEvents.map((v) => {
           return <Card eventItem={v} />;
         })}
       </div>

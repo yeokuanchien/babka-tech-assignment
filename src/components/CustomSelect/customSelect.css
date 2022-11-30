@@ -1,0 +1,27 @@
+.select-element {
+    width: 200px;
+    height: 50px;
+
+    border: 1px solid #444444;
+    border-radius: 6px;
+
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 33px;
+    text-align: center;
+}
+
+.dropdown-label {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+
+
+    color: #2E282C;
+
+}

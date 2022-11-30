@@ -1,29 +1,25 @@
-.event-name-text {
-
-    font-family: 'Avenir';
-    font-style: normal;
-    font-weight: 900;
-    font-size: 48px;
-    line-height: 66px;
-    /* identical to box height */
-
-
-    color: #FFFFFF;
-
-
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.card-container {
+    box-sizing: border-box;
+    padding: 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
+.top-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .date-container {
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 80px;
     height: 80px;
-
     border: 2px solid #FFFFFF;
     border-radius: 6px;
 }
@@ -34,12 +30,17 @@
     font-weight: 400;
     font-size: 48px;
     line-height: 66px;
-
     color: #FFFFFF;
+    user-select: none;
 }
 
-.top-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.event-name-text {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 66px;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    user-select: none;
 }

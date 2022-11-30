@@ -50,53 +50,57 @@ function App() {
     })();
   }, []);
 
+  const handleOnSelectCity = (city) => {
+    setSelectedCity(city);
+    setFilteredEvents(
+      events.filter((v) => {
+        if (selectedMonth)
+          return (
+            v.city === city &&
+            v.date.getMonth() === months.indexOf(selectedMonth)
+          );
+
+        return v.city === city;
+      })
+    );
+  };
+
+  const handleOnSelectMonth = (month) => {
+    setSelectedMonth(month);
+    setFilteredEvents(
+      events.filter((v) => {
+        if (selectedCity)
+          return (
+            v.date.getMonth() === months.indexOf(month) &&
+            v.city === selectedCity
+          );
+
+        return v.date.getMonth() === months.indexOf(month);
+      })
+    );
+  };
+
   return (
     <div className="App">
-      <h1>Event Listing</h1>
+      <h1 className="title">Event Listing</h1>
 
       <div className="filter-container">
         <CustomSelect
           labelText={"City: "}
           options={cities}
-          handleOnChange={(city) => {
-            setSelectedCity(city);
-            setFilteredEvents(
-              events.filter((v) => {
-                if (selectedMonth)
-                  return (
-                    v.city === city &&
-                    v.date.getMonth() === months.indexOf(selectedMonth)
-                  );
-
-                return v.city === city;
-              })
-            );
-          }}
+          handleOnChange={handleOnSelectCity.bind(this)}
         />
 
         <CustomSelect
           labelText={"Month: "}
           options={months}
-          handleOnChange={(month) => {
-            setSelectedMonth(month);
-            setFilteredEvents(
-              events.filter((v) => {
-                if (selectedCity)
-                  return (
-                    v.date.getMonth() === months.indexOf(month) &&
-                    v.city === selectedCity
-                  );
-
-                return v.date.getMonth() === months.indexOf(month);
-              })
-            );
-          }}
+          handleOnChange={handleOnSelectMonth.bind(this)}
         />
       </div>
 
-      <div className="card-container">
+      <div className="grid-layout">
         {filteredEvents.map((v) => {
-          return <Card eventItem={v} />;
+          return <Card key={v.id} eventItem={v} />;
         })}
       </div>
     </div>

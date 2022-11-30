@@ -19,7 +19,9 @@ function CustomSelect(props) {
           {"Please Select"}
         </option>
         {options.map((v) => (
-          <option value={v}>{v}</option>
+          <option key={v} value={v}>
+            {v}
+          </option>
         ))}
       </select>
     </div>

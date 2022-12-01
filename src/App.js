@@ -14,9 +14,10 @@ function App() {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        `https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/xsolla/test-task-frontend/master/events.json`,
+        `https://raw.githubusercontent.com/xsolla/test-task-frontend/master/events.json`,
         {
           method: "GET",
+          mode: "cors",
         }
       );
 
